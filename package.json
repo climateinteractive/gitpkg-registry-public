@@ -1,0 +1,71 @@
+{
+  "name": "@sdeverywhere/check-ui-shell",
+  "version": "0.2.2",
+  "files": [
+    "dist/**",
+    "types/**"
+  ],
+  "type": "module",
+  "module": "dist/index.js",
+  "types": "types/index.d.ts",
+  "scripts": {
+    "clean": "rm -rf dist",
+    "lint:ts": "eslint src --max-warnings 0",
+    "lint:svelte": "svelte-check --fail-on-warnings --output human --compiler-warnings \"a11y-click-events-have-key-events:ignore,a11y-no-noninteractive-tabindex:ignore\"",
+    "lint": "run-s lint:ts lint:svelte",
+    "prettier:check": "prettier --check .",
+    "prettier:fix": "prettier --write .",
+    "precommit": "../../scripts/precommit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:ci": "vitest run",
+    "type-check": "tsc --noEmit -p tsconfig-build.json",
+    "build": "vite build",
+    "build:watch": "vite build --watch",
+    "docs": "../../scripts/gen-docs.js",
+    "ci:build": "run-s clean lint prettier:check test:ci type-check build docs"
+  },
+  "dependencies": {
+    "@sdeverywhere/check-core": "^0.1.1",
+    "@fortawesome/free-regular-svg-icons": "^6.1.1",
+    "@fortawesome/free-solid-svg-icons": "^6.1.1",
+    "@juggle/resize-observer": "^3.3.0",
+    "assert-never": "^1.2.1",
+    "chart.js": "^2.9.4",
+    "copy-text-to-clipboard": "^3.0.1",
+    "fontfaceobserver": "^2.1.0"
+  },
+  "devDependencies": {
+    "@sveltejs/vite-plugin-svelte": "^2.4.5",
+    "@types/chart.js": "^2.9.34",
+    "@types/fontfaceobserver": "^0.0.6",
+    "postcss": "^8.2.14",
+    "pug": "^3.0.1",
+    "sass": "^1.34.1",
+    "svelte": "^3.59.2",
+    "svelte-awesome": "^3.0.0",
+    "svelte-check": "^3.5.1",
+    "svelte-preprocess": "^5.0.4",
+    "vite": "^4.4.9"
+  },
+  "devDependenciesComments": {
+    "svelte-awesome": [
+      "XXX: Technically this should probably be listed in dependencies, but it has",
+      "svelte as a peer dependency even though it isn't required by the consuming",
+      "package due to the way we bundle everything into `dist/index.js`.  For now,",
+      "we list it in devDependencies and include it in the generated bundle so that",
+      "consumers don't need to worry about peer dependency issues."
+    ]
+  },
+  "author": "Climate Interactive",
+  "license": "MIT",
+  "homepage": "https://sdeverywhere.org",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/climateinteractive/SDEverywhere.git",
+    "directory": "packages/check-ui-shell"
+  },
+  "bugs": {
+    "url": "https://github.com/climateinteractive/SDEverywhere/issues"
+  }
+}
